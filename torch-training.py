@@ -8,19 +8,28 @@ neuralnet = model(lr, mom)
 sentiment = torch.load("sentiment.pth")
 localCorrect = {0: 0, 1: 0, 2: 0}
 localTotal = {0: 0, 1: 0, 2: 0}
-total=0
-totalCorrect=0
+total = 0
+totalCorrect = 0
+
+
+#this is for testing only, dont want to change the whole thing up
+#lr, mom = 0, 0
+#trainSet=torch.load("testing_data.pth")
+#sentiment=torch.load("testing_sentiment.pth")
+
 for k in range(10000):
     rand = np.random.randint(2, 20000)
     loss, corr = neuralnet.train(trainSet[rand], sentiment[rand], k)
-    localTotal[sentiment[rand].item()]=localTotal.get(sentiment[rand].item(), 0) +1
-    total+=1
+    localTotal[sentiment[rand].item()] = localTotal.get(
+        sentiment[rand].item(), 0) + 1
+    total += 1
     if corr:
-        localCorrect[sentiment[rand].item()]=localCorrect.get(sentiment[rand].item(), 0)+1
-        totalCorrect+=1
+        localCorrect[sentiment[rand].item()] = localCorrect.get(
+            sentiment[rand].item(), 0)+1
+        totalCorrect += 1
     if k % 100 == 0:
         print(loss)
-#neuralnet.save()
+# neuralnet.save()
 print(localCorrect[0]/localTotal[0])
 print(localCorrect[1]/localTotal[1])
 print(localCorrect[2]/localTotal[2])

@@ -20,12 +20,6 @@ def toInt(text):
     return -1
 with open("indexdict.json") as file:
     indexdict=json.load(file)
-# with open(datapath, "r") as file:
-#     csvreader=csv.reader(file)
-#     for row in csvreader:
-#         sentiment.append(toInt(row[5]))
-#         accuracy.append(row[6])
-
 # sentences=np.asarray(sentiment)
 # accuracy=np.asarray(accuracy)
 # np.save("sentiment.npy", sentences)
@@ -56,4 +50,14 @@ with open("indexdict.json") as file:
 # list=np.asarray(list)
 # list=torch.from_numpy(list)
 # torch.save(list, "sentences.tp")
-
+sentences=np.load("newsentences.npy")
+list=[]
+for element in sentences:
+    bow=np.zeros(48554)
+    for word in element.lower().split():
+        bow[indexdict.get(word, 0)]+=1
+    list.append(bow)
+list=np.asarray(list)
+toSave=list[20000:24900, :]
+toSave=torch.from_numpy(toSave)
+torch.save(toSave, "testing_data.pth")

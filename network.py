@@ -30,7 +30,7 @@ class model(nn.Module):
             corr=True
         loss = self.lossfn(guess, correct)
         loss.backward()
-        if k%100==0:
+        if k%100==0 and k!=0:
             self.optim.step()
             self.optim.zero_grad()
         return loss, corr

@@ -1,5 +1,7 @@
 data/sentiment-emotion-labelled_Dell_tweets.csv
 torch_data.pth
+testing_data.pth
+testing_sentiment.pth
 sentiment.pth
 sentiment.npy
 sentences.npy
